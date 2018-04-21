@@ -16,8 +16,6 @@ class UsersController extends Controller
             abort(404, 'No user with that handle');
         }
 
-        $tweets = Tweet::where('user_id', $user->id)->latest()->get();
-
-        return view('users.show', compact('user', 'tweets'));
+        return view('users.show', compact('user'));
     }
 }

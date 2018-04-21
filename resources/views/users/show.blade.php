@@ -31,7 +31,7 @@
             </div>
         </div>
 
-        @foreach($tweets as $tweet)
+        @foreach($user->tweets as $tweet)
             <div class="rounded shadow mb-4">
                 <div class="font-medium text-lg text-brand-darker bg-brand-lighter p-3 rounded-t flex items-center">
                     <span><img class="w-8 h-8 mr-4" src="{{ $tweet->user->avatar }}"></span>

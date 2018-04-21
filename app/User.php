@@ -2,10 +2,11 @@
 
 namespace App;
 
-use Auth;
 use App\Follow;
-use Illuminate\Notifications\Notifiable;
+use App\Tweet;
+use Auth;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
 
 class User extends Authenticatable
 {
@@ -33,6 +34,12 @@ class User extends Authenticatable
     {
         return ! is_null(Follow::where('follower_id', Auth::id())->where('followed_id', $user->id)->first());
     }
+
+    public function tweets()
+    {
+        return $this->hasMany(Tweet::class)->latest();
+    }
+
 
     public function getAvatarAttribute()
     {
