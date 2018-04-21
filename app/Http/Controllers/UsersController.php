@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Tweet;
 use App\User;
+use Illuminate\Http\Request;
 
 class UsersController extends Controller
 {
@@ -15,6 +16,8 @@ class UsersController extends Controller
             abort(404, 'No user with that handle');
         }
 
-        return view('users.show', compact('user'));
+        $tweets = Tweet::where('user_id', $user->id)->latest()->get();
+
+        return view('users.show', compact('user', 'tweets'));
     }
 }
