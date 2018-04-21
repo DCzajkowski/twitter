@@ -2,6 +2,8 @@
 
 namespace App;
 
+use Auth;
+use App\Follow;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
@@ -26,4 +28,14 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    public function follows($user)
+    {
+        return ! is_null(Follow::where('follower_id', Auth::id())->where('followed_id', $user->id)->first());
+    }
+
+    public function getAvatarAttribute()
+    {
+        return 'https://www.gravatar.com/avatar/' . md5($this->email);
+    }
 }
