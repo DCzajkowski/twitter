@@ -8,15 +8,15 @@ use Illuminate\Support\Facades\Auth;
 
 class TweetsController extends Controller
 {
-    public function store()
+    public function store(Request $request)
     {
-        $data = request()->validate([
-            'body' => 'min:3,max:120,required',
+        $this->validate($request, [
+            'body' => 'min:3|max:120|required',
         ]);
 
         $tweet = new Tweet;
         $tweet->user_id = Auth::id();
-        $tweet->body = $data['body'];
+        $tweet->body = $request->body;
         $tweet->save();
 
         return redirect()->back();
